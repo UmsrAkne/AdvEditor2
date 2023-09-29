@@ -6,14 +6,24 @@ import flash.display.Sprite;
 
 public class BitmapContainer
 {
-    private var baseObject:Sprite = new Sprite();
-    private var bitmaps:Vector.<Bitmap> = new Vector.<Bitmap>();
-    private var capacity:int = 3;
-
     public function BitmapContainer(parent:DisplayObjectContainer, capacity:int = 3)
     {
         parent.addChild(baseObject);
         this.capacity = capacity;
+    }
+
+    private var baseObject:Sprite = new Sprite();
+    private var bitmaps:Vector.<Bitmap> = new Vector.<Bitmap>();
+    private var capacity:int = 3;
+
+    public function get count():int
+    {
+        return bitmaps.length;
+    }
+
+    public function get front():Bitmap
+    {
+        return bitmaps.length > 0 ? bitmaps[bitmaps.length - 1] : null;
     }
 
     public function add(bmp:Bitmap):void
@@ -28,11 +38,6 @@ public class BitmapContainer
             b.visible = false;
             baseObject.removeChild(b);
         }
-    }
-
-    public function get count():int
-    {
-        return bitmaps.length;
     }
 }
 }
