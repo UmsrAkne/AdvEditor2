@@ -3,6 +3,7 @@ package testClasses.ui
 import classes.ui.BitmapContainer;
 
 import flash.display.Bitmap;
+import flash.display.BitmapData;
 import flash.display.Sprite;
 
 import testClasses.Assert;
@@ -14,6 +15,35 @@ public class TestBitmapContainer
     {
         addTest();
         frontTest();
+        addedBitmapDataDisposeTest();
+    }
+
+    private function addedBitmapDataDisposeTest():void
+    {
+        var sp:Sprite = new Sprite();
+        var container:BitmapContainer = new BitmapContainer(sp, 3);
+
+        var b1:Bitmap = new Bitmap(new BitmapData(1, 1, true, 0xffffff));
+        var b2:Bitmap = new Bitmap(new BitmapData(1, 1, true, 0xffffff));
+        var b3:Bitmap = new Bitmap(new BitmapData(1, 1, true, 0xffffff));
+        var b4:Bitmap = new Bitmap(new BitmapData(1, 1, true, 0xffffff));
+
+        container.add(b1);
+        container.add(b2);
+        container.add(b3);
+        container.add(b4);
+
+        var disposed:Boolean = false;
+
+        try
+        {
+            trace(b1.bitmapData.width);
+        } catch (error:Error)
+        {
+            disposed = true;
+        }
+
+        Assert.isTrue(disposed, "アクセスに失敗していれば disposed == true のはず");
     }
 
     private function frontTest():void
