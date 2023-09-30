@@ -1,8 +1,6 @@
 package classes.contents
 {
-import flash.display.Loader;
 import flash.filesystem.File;
-import flash.net.URLRequest;
 
 public class ImageFile
 {
@@ -13,8 +11,14 @@ public class ImageFile
     }
 
     private var file:File;
-    private var loader:Loader;
     private var nameWe:String;
+
+    private var _loader:ILoader;
+
+    public function set loader(value:ILoader):void
+    {
+        _loader = value;
+    }
 
     public function get fileNameWithoutExtension():String
     {
@@ -33,11 +37,12 @@ public class ImageFile
 
     public function load():void
     {
-        if (loader == null)
+        if (_loader == null)
         {
-            loader = new Loader();
-            loader.load(new URLRequest(file.nativePath));
+            _loader = new ContentLoader();
         }
+
+        _loader.load(file.nativePath);
     }
 }
 }
