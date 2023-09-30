@@ -1,5 +1,8 @@
 package classes.contents
 {
+import flash.events.Event;
+import flash.events.EventDispatcher;
+import flash.events.IEventDispatcher;
 import flash.filesystem.File;
 
 public class ImageFile
@@ -18,6 +21,18 @@ public class ImageFile
     public function set loader(value:ILoader):void
     {
         _loader = value;
+    }
+
+    private var _eventDispatcher:IEventDispatcher;
+
+    public function get eventDispatcher():IEventDispatcher
+    {
+        if (_eventDispatcher == null)
+        {
+            _eventDispatcher = new EventDispatcher();
+        }
+
+        return _eventDispatcher;
     }
 
     public function get fileNameWithoutExtension():String
@@ -42,7 +57,14 @@ public class ImageFile
             _loader = new ContentLoader();
         }
 
+        _loader.addEventListener(Event.COMPLETE, completeEventHandler);
         _loader.load(file.nativePath);
+    }
+
+    private function completeEventHandler(e:Event):void
+    {
+        _eventDispatcher.dispatchEvent(new Event(Event.COMPLETE));
+        _loader.removeEventListener(Event.COMPLETE, completeEventHandler);
     }
 }
 }
