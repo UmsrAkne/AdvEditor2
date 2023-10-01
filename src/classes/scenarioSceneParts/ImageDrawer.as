@@ -1,5 +1,7 @@
 package classes.scenarioSceneParts
 {
+import classes.contents.Scenario;
+
 public class ImageDrawer implements IScenarioSceneParts
 {
     public function ImageDrawer()
@@ -7,6 +9,10 @@ public class ImageDrawer implements IScenarioSceneParts
     }
 
     public function execute():void
+    {
+    }
+
+    public function setScenario(scenario:Scenario):void
     {
     }
 }
