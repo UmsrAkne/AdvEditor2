@@ -1,6 +1,7 @@
 package classes.ui
 {
 import flash.display.Bitmap;
+import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.Sprite;
 
@@ -37,6 +38,16 @@ public class BitmapContainer
     public function get front():Bitmap
     {
         return bitmaps.length > 0 ? bitmaps[bitmaps.length - 1] : null;
+    }
+
+    /**
+     * (set)この BitmapContainer に登録されている全てのオブジェクトに対して適用するマスクを登録します。
+     * 動作検証済み。
+     * @param mask
+     */
+    public function set mask(mask:DisplayObject):void
+    {
+        baseObject.mask = mask;
     }
 
     /**

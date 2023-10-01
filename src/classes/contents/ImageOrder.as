@@ -7,6 +7,7 @@ public class ImageOrder
     public var scale:Number = 1.0;
     public var targetLayerIndex:int;
     public var isDrawOrder:Boolean;
+    public var isMaskOrder:Boolean;
     private var _imageFiles:Vector.<ImageFile>;
 
     /**
