@@ -2,14 +2,17 @@ package classes.scenarioSceneParts
 {
 import classes.contents.ImageOrder;
 import classes.contents.Scenario;
+import classes.ui.BitmapContainer;
 
 public class ImageDrawer implements IScenarioSceneParts
 {
-
-    public function ImageDrawer()
+    public function ImageDrawer(container:BitmapContainer, index:int = 0)
     {
+        bitmapContainer = container;
+        targetLayerIndex = index;
     }
 
+    private var bitmapContainer:BitmapContainer;
     private var imageOrders:Vector.<ImageOrder>;
     private var targetLayerIndex:int;
 
@@ -22,10 +25,16 @@ public class ImageDrawer implements IScenarioSceneParts
         {
             if (o.targetLayerIndex == targetLayerIndex)
             {
+                if (o.isMaskOrder)
+                {
+                    continue;
+                }
+
                 if (o.isDrawOrder)
                 {
                     drawOrder = o;
                 }
+
                 if (!o.isDrawOrder)
                 {
                     additionOrder = o;
@@ -59,11 +68,11 @@ public class ImageDrawer implements IScenarioSceneParts
         }
     }
 
-    public function addBitmap(order:ImageOrder)
+    public function addBitmap(order:ImageOrder):void
     {
     }
 
-    public function drawToFront(order:ImageOrder)
+    public function drawToFront(order:ImageOrder):void
     {
 
     }
