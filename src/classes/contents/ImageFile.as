@@ -1,5 +1,8 @@
 package classes.contents
 {
+import flash.display.BitmapData;
+import flash.display.IBitmapDrawable;
+import flash.display.Loader;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.events.IEventDispatcher;
@@ -35,6 +38,13 @@ public class ImageFile
         return _eventDispatcher;
     }
 
+    private var _bitmapData:IBitmapDrawable;
+
+    public function get bitmapData():IBitmapDrawable
+    {
+        return _bitmapData;
+    }
+
     public function get fileNameWithoutExtension():String
     {
         if (nameWe == null)
@@ -50,6 +60,26 @@ public class ImageFile
         return file.name;
     }
 
+    public function get width():int
+    {
+        if (_loader == null || _loader.loader == null)
+        {
+            return 0;
+        }
+
+        return _loader.loader.width;
+    }
+
+    public function get height():int
+    {
+        if (_loader == null || _loader.loader == null)
+        {
+            return 0;
+        }
+
+        return _loader.loader.height;
+    }
+
     public function load():void
     {
         if (_loader == null)
@@ -61,8 +91,14 @@ public class ImageFile
         _loader.load(file.nativePath);
     }
 
+    public function CreateBitmapData(l:Loader):IBitmapDrawable
+    {
+        return l.width > 0 ? new BitmapData(l.width, l.height, true, 0x0) : new BitmapData(10, 10, true, 0x00ff0000);
+    }
+
     private function completeEventHandler(e:Event):void
     {
+        _bitmapData = CreateBitmapData(_loader.loader);
         _eventDispatcher.dispatchEvent(new Event(Event.COMPLETE));
         _loader.removeEventListener(Event.COMPLETE, completeEventHandler);
     }

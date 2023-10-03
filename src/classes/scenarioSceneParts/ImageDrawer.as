@@ -1,15 +1,23 @@
 package classes.scenarioSceneParts
 {
+import classes.contents.ImageFile;
 import classes.contents.ImageOrder;
 import classes.contents.Scenario;
+import classes.ui.BitmapContainer;
+
+import flash.display.Bitmap;
+import flash.display.BitmapData;
+import flash.display.PixelSnapping;
 
 public class ImageDrawer implements IScenarioSceneParts
 {
-
-    public function ImageDrawer()
+    public function ImageDrawer(container:BitmapContainer, index:int = 0)
     {
+        bitmapContainer = container;
+        targetLayerIndex = index;
     }
 
+    private var bitmapContainer:BitmapContainer;
     private var imageOrders:Vector.<ImageOrder>;
     private var targetLayerIndex:int;
 
@@ -22,10 +30,16 @@ public class ImageDrawer implements IScenarioSceneParts
         {
             if (o.targetLayerIndex == targetLayerIndex)
             {
+                if (o.isMaskOrder)
+                {
+                    continue;
+                }
+
                 if (o.isDrawOrder)
                 {
                     drawOrder = o;
                 }
+
                 if (!o.isDrawOrder)
                 {
                     additionOrder = o;
@@ -59,11 +73,22 @@ public class ImageDrawer implements IScenarioSceneParts
         }
     }
 
-    public function addBitmap(order:ImageOrder)
+    public function addBitmap(order:ImageOrder):void
     {
+        var baseImage:ImageFile = order.mostBackImage;
+        var bmp:Bitmap = new Bitmap(new BitmapData(baseImage.width, baseImage.height, true, 0x0), PixelSnapping.AUTO, true);
+        for each (var img:ImageFile in order.imageFiles)
+        {
+            if (img == null)
+            {
+                continue;
+            }
+
+            bmp.bitmapData.draw(img.bitmapData);
+        }
     }
 
-    public function drawToFront(order:ImageOrder)
+    public function drawToFront(order:ImageOrder):void
     {
 
     }

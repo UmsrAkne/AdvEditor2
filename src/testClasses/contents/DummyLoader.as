@@ -15,7 +15,7 @@ public class DummyLoader implements ILoader
     public var loadedPath:String;
     private var eventDispatcher:EventDispatcher = new EventDispatcher();
 
-    private var _loader:Loader;
+    private var _loader:Loader = new Loader();
 
     public function get loader():Loader
     {

@@ -22,5 +22,22 @@ public class ImageOrder
 
         return _imageFiles;
     }
+
+    /**
+     * (get)このオブジェクトが保持 ImageFile している中で、最も奥（レイヤーのインデックスが若いもの）を取得します。
+     * ImageFile を一つも保持していない場合は、null を返します。
+     */
+    public function get mostBackImage():ImageFile
+    {
+        for each (var img:ImageFile in imageFiles)
+        {
+            if (img != null)
+            {
+                return img;
+            }
+        }
+
+        return null;
+    }
 }
 }
