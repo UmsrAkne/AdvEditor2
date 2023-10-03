@@ -60,6 +60,26 @@ public class ImageFile
         return file.name;
     }
 
+    public function get width():int
+    {
+        if (_loader == null || _loader.loader == null)
+        {
+            return 0;
+        }
+
+        return _loader.loader.width;
+    }
+
+    public function get height():int
+    {
+        if (_loader == null || _loader.loader == null)
+        {
+            return 0;
+        }
+
+        return _loader.loader.height;
+    }
+
     public function load():void
     {
         if (_loader == null)
