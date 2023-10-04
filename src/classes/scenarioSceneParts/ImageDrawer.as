@@ -77,6 +77,17 @@ public class ImageDrawer implements IScenarioSceneParts
     {
         var baseImage:ImageFile = order.mostBackImage;
         var bmp:Bitmap = new Bitmap(new BitmapData(baseImage.width, baseImage.height, true, 0x0), PixelSnapping.AUTO, true);
+        draw(bmp, order);
+    }
+
+    public function drawToFront(order:ImageOrder):void
+    {
+        var bmp:Bitmap = bitmapContainer.front;
+        draw(bmp, order);
+    }
+
+    public function draw(bmp:Bitmap, order:ImageOrder):void
+    {
         for each (var img:ImageFile in order.imageFiles)
         {
             if (img == null)
@@ -86,11 +97,6 @@ public class ImageDrawer implements IScenarioSceneParts
 
             bmp.bitmapData.draw(img.bitmapData);
         }
-    }
-
-    public function drawToFront(order:ImageOrder):void
-    {
-
     }
 }
 }
