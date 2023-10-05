@@ -10,6 +10,8 @@ public interface IAnimation
 
     function get targetLayerIndex():int;
 
+    function set targetLayerIndex(value:int):void;
+
     function set target(value:DisplayObject):void
 
     function start():void;
